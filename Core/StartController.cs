@@ -56,7 +56,7 @@ namespace ServerAspNetCoreLinux.Core
                 p2.Start();
                 p2.WaitForExit();
 
-                var data = File.ReadAllBytes("/test/");
+                var data = File.ReadAllBytes("test/");
                 var postParameters = new Dictionary<string, object>();
                 postParameters.Add("url", new FileParameter(data, "file", "application/octet-stream"));
                 postParameters.Add("api_token", "e1d593768b4a52f1f6229de45d64cd2d");
