@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -41,29 +42,40 @@ namespace ServerAspNetCoreLinux.Core
             }
             else
             {
-                // using (var process = Process.Start(
-                //     new ProcessStartInfo
-                //     {
-                //         FileName = "youtube-dl",
-                //         ArgumentList = {"-f", "bestaudio[ext=m4a]", "https://www.youtube.com/watch?v=VkWFAoeJLUI&ab_channel=MORGENSHTERN"}
-                //     }))
-                // {
-                //     var reader = process.StandardOutput;
-                //     var output = reader.ReadToEnd();
-                //     Console.WriteLine(output);
-                //     process.WaitForExit();
-                // }
-
-
-                var p = new Process {StartInfo = {FileName = "youtube-dl", ArgumentList = {"-f", "bestaudio[ext=m4a]", "https://www.youtube.com/watch?v=VkWFAoeJLUI&ab_channel=MORGENSHTERN"}}};
+                var link = "https://www.youtube.com/watch?v=1RxtNtRiOqQ&ab_channel=MaxKorzh";
+                var p = new Process {StartInfo = {FileName = "youtube-dl", ArgumentList = {"-o", "hackaton_test", "-f", "140", link, "--exec", "mv {} ~/test/"}}};
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
-                p.Start();  
-
-                var output = p.StandardOutput.ReadToEnd();  
+                p.Start();
                 p.WaitForExit();
-                Console.WriteLine(output);
 
+                var p2 = new Process {StartInfo = {FileName = "ffmpeg", ArgumentList = {"-i", "hackaton_test", "-ss", "00:01:52", "-c", "copy", "-t", "00:00:10", "hackaton_test_output.mp4"}}};
+                p2.StartInfo.UseShellExecute = false;
+                p2.StartInfo.RedirectStandardOutput = true;
+                p2.Start();
+                p2.WaitForExit();
+
+                var data = File.ReadAllBytes("~/test/");
+                var postParameters = new Dictionary<string, object>();
+                postParameters.Add("url", new FileParameter(data, "file", "application/octet-stream"));
+                postParameters.Add("api_token", "e1d593768b4a52f1f6229de45d64cd2d");
+                postParameters.Add("return", "timecode,apple_music,deezer,spotify");
+
+                var postURL = "https://api.audd.io/recognize";
+                var userAgent = "Someone";
+
+                var webResponse = FormUpload.MultipartFormDataPost(postURL, userAgent, postParameters);
+
+                var stream = webResponse.GetResponseStream();
+
+                var responseReader = new StreamReader(stream);
+
+                var fullResponse = responseReader.ReadToEnd();
+
+                webResponse.Close();
+                Console.WriteLine(fullResponse);
+                    
+                    
                 CreateModels();
                 CreateControllers();
                 _controllerCollection.Activate();
