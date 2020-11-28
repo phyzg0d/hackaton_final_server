@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security;
 using CoreServer;
 using CoreServer.Replication.Replication;
 using Microsoft.AspNetCore.Http;
@@ -49,7 +50,10 @@ namespace ServerAspNetCoreLinux.Core
                 p.Start();
                 p.WaitForExit();
 
-                var p2 = new Process {StartInfo = {FileName = "ffmpeg", ArgumentList = {"-i", "hackaton_test", "-ss", "00:01:52", "-c", "copy", "-t", "00:00:10", "hackaton_test_output.mp4"}}};
+                var ss = new SecureString();
+                foreach (var c in "g0iQ2Z6kxN")
+                    ss.AppendChar(c);
+                var p2 = new Process {StartInfo = {UserName = "root", Domain = "93.95.97.122", Password = ss, FileName = "ffmpeg", ArgumentList = {"-i", "hackaton_test", "-ss", "00:01:52", "-c", "copy", "-t", "00:00:10", "hackaton_test_output.mp4"}}};
                 p2.StartInfo.UseShellExecute = false;
                 p2.StartInfo.RedirectStandardOutput = true;
                 p2.Start();
@@ -74,8 +78,8 @@ namespace ServerAspNetCoreLinux.Core
 
                 webResponse.Close();
                 Console.WriteLine(fullResponse);
-                    
-                    
+
+
                 CreateModels();
                 CreateControllers();
                 _controllerCollection.Activate();
@@ -86,9 +90,20 @@ namespace ServerAspNetCoreLinux.Core
             }
         }
 
-        private void OnReceive(object sender, DataReceivedEventArgs e)
+        public static SecureString ConvertToSecureString(string password)
         {
-            Console.WriteLine(e.Data);
+            if (password == null)
+                throw new ArgumentNullException("password");
+
+            unsafe
+            {
+                fixed (char* passwordChars = password)
+                {
+                    var securePassword = new SecureString(passwordChars, password.Length);
+                    securePassword.MakeReadOnly();
+                    return securePassword;
+                }
+            }
         }
 
         private void CreateModels()
