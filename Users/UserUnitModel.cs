@@ -41,7 +41,7 @@ namespace ServerAspNetCoreLinux.Users
         {
             Properties.Create<string>("email", true).Value = email;
             Properties.Create<string>("password", true).Value = password;
-            Properties.Create<string>("id", true).Value = login;
+            Properties.Get<string>("id").Value = login;
             Properties.Create<float>("money", true).Value = money;
             Properties.Create<string>("permission", true).Value = permission;
             Properties.Create<float>("hours_left", true).Value = hoursLeft;
