@@ -18,8 +18,8 @@ namespace ServerAspNetCoreLinux.Users
         }
         public string Login
         {
-            get => Properties.Get<string>("login").Value;
-            set => Properties.Get<string>("login").Value = value;
+            get => Properties.Get<string>("id").Value;
+            set => Properties.Get<string>("id").Value = value;
         }
         public float Money
         {
@@ -41,7 +41,7 @@ namespace ServerAspNetCoreLinux.Users
         {
             Properties.Create<string>("email", true).Value = email;
             Properties.Create<string>("password", true).Value = password;
-            Properties.Create<string>("login", true).Value = login;
+            Properties.Create<string>("id", true).Value = login;
             Properties.Create<float>("money", true).Value = money;
             Properties.Create<string>("permission", true).Value = permission;
             Properties.Create<float>("hours_left", true).Value = hoursLeft;

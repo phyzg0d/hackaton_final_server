@@ -17,7 +17,7 @@ namespace ServerAspNetCoreLinux.Users
 
         public override void Deserialize(SqlDataReader dataReader)
         {
-            var user = new UserUnitModel(dataReader.GetString("email"), dataReader.GetString("password"), dataReader.GetString("login"), dataReader.GetFloat("money"), dataReader.GetString("permission"), dataReader.GetFloat("hours_left"));
+            var user = new UserUnitModel(dataReader.GetString("email"), dataReader.GetString("password"), dataReader.GetString("id"), dataReader.GetFloat("money"), dataReader.GetString("permission"), dataReader.GetFloat("hours_left"));
             Add(user);
             ServerLoggerModel.Log(TypeLog.Info,"users deserialize was completed");
         }
@@ -25,7 +25,7 @@ namespace ServerAspNetCoreLinux.Users
         public override void Add(IReplicationData user)
         {
             base.Add(user);
-            Emails.Add(user.Properties.Get<string>("email").Value, user.Properties.Get<string>("login").Value);
+            Emails.Add(user.Properties.Get<string>("email").Value, user.Properties.Get<string>("id").Value);
         }
     }
 }
