@@ -43,7 +43,7 @@ namespace ServerAspNetCoreLinux.Core
             else
             {
                 var link = "https://www.youtube.com/watch?v=1RxtNtRiOqQ&ab_channel=MaxKorzh";
-                var p = new Process {StartInfo = {FileName = "youtube-dl", ArgumentList = {"-o", "hackaton_test", "-f", "140", link, "--exec", "mv {} ~/test/"}}};
+                var p = new Process {StartInfo = {FileName = "youtube-dl", ArgumentList = {"-o", "hackaton_test", "-f", "140", link, "--exec", "mv {} /root/test/"}}};
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
                 p.Start();
