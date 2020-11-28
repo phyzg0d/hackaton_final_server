@@ -11,6 +11,6 @@
   },
   "Replication": {
     "enable": "",
-    "label": ["users", "sessions"]
+    "label": ["users", "sessions", "hackaton_users"]
   }
 }
