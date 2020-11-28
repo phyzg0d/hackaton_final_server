@@ -1,12 +1,17 @@
-﻿using CoreServer;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using CoreServer;
 using CoreServer.Replication.Replication;
 using Microsoft.AspNetCore.Http;
+using ServerAspNetCoreLinux.Commands;
 using ServerAspNetCoreLinux.ServerCore;
 using ServerAspNetCoreLinux.ServerCore.Commands;
 using ServerAspNetCoreLinux.ServerCore.ServerLogger;
 using ServerAspNetCoreLinux.ServerCore.Utilities;
 using ServerAspNetCoreLinux.Tracks;
 using ServerAspNetCoreLinux.Users;
+using YoutubeExtractor;
 using static ServerAspNetCoreLinux.Replication.DbConst;
 
 namespace ServerAspNetCoreLinux.Core
@@ -34,6 +39,14 @@ namespace ServerAspNetCoreLinux.Core
             }
             else
             {
+                using var process = Process.Start(
+                    new ProcessStartInfo
+                    {
+                        FileName = "youtube-dl",
+                        ArgumentList = { "-f 'bestaudio[ext=m4a]' 'https://www.youtube.com/watch?v=VkWFAoeJLUI&ab_channel=MORGENSHTERN'" }
+                    });
+                process.WaitForExit();
+                
                 CreateModels();
                 CreateControllers();
                 _controllerCollection.Activate();

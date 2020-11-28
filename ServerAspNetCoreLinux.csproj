@@ -35,6 +35,7 @@
 	<Compile Remove="\server-prototype\obj\Develop\netcoreapp3.1\ServerAspNetCoreLinux.AssemblyInfo.cs" />
         <Compile Remove="\server-prototype\obj\Debug\netcoreapp3.1\ServerAspNetCoreLinux.AssemblyInfo.cs" />
         <PackageReference Include="System.Net.Http" Version="4.3.4" />
+        <PackageReference Include="YoutubeExtractor" Version="0.10.11" />
     </ItemGroup>
     
     <ItemGroup>
