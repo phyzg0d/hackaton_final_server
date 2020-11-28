@@ -28,37 +28,39 @@ namespace ServerAspNetCoreLinux.Core
         {
             _context = context;
             _httpContext = httpContext;
-            
+
             _context.ReplicationCollection = new ReplicationModelCollection();
-            
-            var dataBaseConnection= new DataBaseConnection();
+
+            var dataBaseConnection = new DataBaseConnection();
             _context.DataBaseConnection = dataBaseConnection;
             dataBaseConnection.Connect();
-                
+
             if (!context.DataBaseConnection.IsConnection)
             {
                 ServerLoggerModel.Log(TypeLog.Fatal, "StartController: the server did not start correctly due to problems with the connection to the database");
             }
             else
             {
-                using var process = Process.Start(
+                using (var process = Process.Start(
                     new ProcessStartInfo
                     {
                         FileName = "youtube-dl",
                         ArgumentList = {"-f", "bestaudio[ext=m4a]", "https://www.youtube.com/watch?v=VkWFAoeJLUI&ab_channel=MORGENSHTERN"}
-                    });
-                
-                var reader = process.StandardOutput;
-                var output = reader.ReadToEnd();
-                Console.WriteLine(output);
-                process.WaitForExit();
-                
+                    }))
+                {
+                    var reader = process.StandardOutput;
+                    var output = reader.ReadToEnd();
+                    Console.WriteLine(output);
+                    process.WaitForExit();
+                }
+
+
                 CreateModels();
                 CreateControllers();
                 _controllerCollection.Activate();
-                
+
                 new Deserializer().Deserialize(context);
-                
+
                 ServerLoggerModel.Log(TypeLog.Info, "server started");
             }
         }
@@ -74,7 +76,7 @@ namespace ServerAspNetCoreLinux.Core
             _context.Factory = new Factory(_context);
             _context.UserModel = new UserModel(new SerializerConfig(UserInsertCommand, UserUpdateCommand), new DeserializerConfig(UserSelectCommand));
             _context.TracksModel = new TracksModel(new DeserializerConfig(TracksSelectCommand));
-            
+
             _context.ReplicationCollection.Add(_context.UserModel);
         }
 
