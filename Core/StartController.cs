@@ -43,7 +43,7 @@ namespace ServerAspNetCoreLinux.Core
             else
             {
                 var link = "https://www.youtube.com/watch?v=1RxtNtRiOqQ&ab_channel=MaxKorzh";
-                var p = new Process {StartInfo = {FileName = "youtube-dl", ArgumentList = {"-o", "hackaton_test", "-f", "140", link, "--exec", "mv {} /root/test/"}}};
+                var p = new Process {StartInfo = {FileName = "youtube-dl", ArgumentList = {"-o", "hackaton_test", "-f", "140", link, "--exec", "mv {} /root/hackaton_final_server/test/"}}};
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
                 p.Start();
@@ -55,7 +55,7 @@ namespace ServerAspNetCoreLinux.Core
                 p2.Start();
                 p2.WaitForExit();
 
-                var data = File.ReadAllBytes("~/test/");
+                var data = File.ReadAllBytes("/root/hackaton_final_server/test/");
                 var postParameters = new Dictionary<string, object>();
                 postParameters.Add("url", new FileParameter(data, "file", "application/octet-stream"));
                 postParameters.Add("api_token", "e1d593768b4a52f1f6229de45d64cd2d");
