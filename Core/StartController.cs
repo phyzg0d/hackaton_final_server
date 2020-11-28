@@ -43,35 +43,7 @@ namespace ServerAspNetCoreLinux.Core
             }
             else
             {
-                var link = "https://www.youtube.com/watch?v=1RxtNtRiOqQ&ab_channel=MaxKorzh";
-                var p = new Process {StartInfo = {FileName = "youtube-dl", ArgumentList = {"-o", "hackaton_test1.m4a", "-f", "140", link, "--exec", "mv {} test/"}}};
-                p.Start();
-                p.WaitForExit();
-
-                var p2 = new Process {StartInfo = {FileName = "ffmpeg", ArgumentList = {"-i", "test/hackaton_test1.m4a", "-ss", "00:01:52", "-c", "copy", "-t", "00:00:10", "test/hackaton_test_output.mp4"}}};
-                p2.Start();
-                p2.WaitForExit();
-
-                var data = File.ReadAllBytes("test/hackaton_test_output.mp4");
-                var postParameters = new Dictionary<string, object>();
                 
-                postParameters.Add("file", new FileParameter(data, "file", "application/octet-stream"));
-                postParameters.Add("api_token", "e1d593768b4a52f1f6229de45d64cd2d");
-                postParameters.Add("return", "timecode,apple_music,deezer,spotify");
-
-                var postURL = "https://api.audd.io/recognize";
-                var userAgent = "Someone";
-
-                var webResponse = FormUpload.MultipartFormDataPost(postURL, userAgent, postParameters);
-
-                var stream = webResponse.GetResponseStream();
-
-                var responseReader = new StreamReader(stream);
-
-                var fullResponse = responseReader.ReadToEnd();
-
-                webResponse.Close();
-                Console.WriteLine(fullResponse);
 
 
                 CreateModels();
@@ -81,22 +53,6 @@ namespace ServerAspNetCoreLinux.Core
                 new Deserializer().Deserialize(context);
 
                 ServerLoggerModel.Log(TypeLog.Info, "server started");
-            }
-        }
-
-        public static SecureString ConvertToSecureString(string password)
-        {
-            if (password == null)
-                throw new ArgumentNullException("password");
-
-            unsafe
-            {
-                fixed (char* passwordChars = password)
-                {
-                    var securePassword = new SecureString(passwordChars, password.Length);
-                    securePassword.MakeReadOnly();
-                    return securePassword;
-                }
             }
         }
 
