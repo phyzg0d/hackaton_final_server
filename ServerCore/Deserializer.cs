@@ -27,6 +27,23 @@ namespace ServerAspNetCoreLinux.ServerCore
                 }
                 dataReader.Close();
             }
+            
+            var command1 = new SqlCommand("")
+            {
+                Connection = context.DataBaseConnection.Connection
+            };
+
+            command1.CommandText = context.TracksModel.DeserializerConfig.CommandSelect;
+            var dataReader1 = command1.ExecuteReader();
+
+            if (dataReader1.HasRows)
+            {
+                while (dataReader1.Read())
+                {
+                    context.TracksModel.Deserialize(dataReader1);
+                }
+            }
+            dataReader1.Close();
         }
     }
 }

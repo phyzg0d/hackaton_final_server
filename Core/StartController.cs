@@ -5,6 +5,7 @@ using ServerAspNetCoreLinux.ServerCore;
 using ServerAspNetCoreLinux.ServerCore.Commands;
 using ServerAspNetCoreLinux.ServerCore.ServerLogger;
 using ServerAspNetCoreLinux.ServerCore.Utilities;
+using ServerAspNetCoreLinux.Tracks;
 using ServerAspNetCoreLinux.Users;
 using static ServerAspNetCoreLinux.Replication.DbConst;
 
@@ -48,6 +49,7 @@ namespace ServerAspNetCoreLinux.Core
             _context.CommandModel = new CommandModel();
             _context.Factory = new Factory(_context);
             _context.UserModel = new UserModel(new SerializerConfig(UserInsertCommand, UserUpdateCommand), new DeserializerConfig(UserSelectCommand));
+            _context.TracksModel = new TracksModel(new DeserializerConfig(TracksSelectCommand));
             
             _context.ReplicationCollection.Add(_context.UserModel);
         }

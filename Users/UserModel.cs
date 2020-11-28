@@ -20,7 +20,7 @@ namespace ServerAspNetCoreLinux.Users
         {
             var user = new UserUnitModel(dataReader.GetString("email"), dataReader.GetString("password"), dataReader.GetString("id"), Convert.ToSingle(dataReader.GetString("money")), dataReader.GetString("permission"), Convert.ToSingle(dataReader.GetString("hours_left")));
             Add(user);
-            ServerLoggerModel.Log(TypeLog.Info,"users deserialize was completed");
+            ServerLoggerModel.Log(TypeLog.Info, "users deserialize was completed");
         }
 
         public override void Add(IReplicationData user)

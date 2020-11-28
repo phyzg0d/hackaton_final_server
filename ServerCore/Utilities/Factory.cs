@@ -22,6 +22,7 @@ namespace ServerAspNetCoreLinux.ServerCore.Utilities
                 {nameof(SignOutCommand), (form, httpContext) => new SignOutCommand(form, httpContext)},
                 {nameof(RegistrationCommand), (form, httpContext) => new RegistrationCommand(form, httpContext)},
                 {nameof(UserConnectionCommand), (form, httpContext) => new UserConnectionCommand(form, httpContext)},
+                {nameof(GetTracksCommand), (form, httpContext) => new GetTracksCommand(form, httpContext)},
             };
         }
     }
