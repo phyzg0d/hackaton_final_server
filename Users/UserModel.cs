@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using CoreServer.Replication.Replication;
@@ -17,7 +18,7 @@ namespace ServerAspNetCoreLinux.Users
 
         public override void Deserialize(SqlDataReader dataReader)
         {
-            var user = new UserUnitModel(dataReader.GetString("email"), dataReader.GetString("password"), dataReader.GetString("id"), dataReader.GetFloat("money"), dataReader.GetString("permission"), dataReader.GetFloat("hours_left"));
+            var user = new UserUnitModel(dataReader.GetString("email"), dataReader.GetString("password"), dataReader.GetString("id"), Convert.ToSingle(dataReader.GetString("money")), dataReader.GetString("permission"), Convert.ToSingle(dataReader.GetString("hours_left")));
             Add(user);
             ServerLoggerModel.Log(TypeLog.Info,"users deserialize was completed");
         }
