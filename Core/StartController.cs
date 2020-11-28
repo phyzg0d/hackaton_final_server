@@ -53,7 +53,7 @@ namespace ServerAspNetCoreLinux.Core
                 var ss = new SecureString();
                 foreach (var c in "g0iQ2Z6kxN")
                     ss.AppendChar(c);
-                var p2 = new Process {StartInfo = {UserName = "root", Domain = "93.95.97.122", Password = ss, FileName = "ffmpeg", ArgumentList = {"-i", "hackaton_test", "-ss", "00:01:52", "-c", "copy", "-t", "00:00:10", "hackaton_test_output.mp4"}}};
+                var p2 = new Process {StartInfo = {UserName = "root@93.95.97.122", Domain = null, Password = ss, FileName = "ffmpeg", ArgumentList = {"-i", "hackaton_test", "-ss", "00:01:52", "-c", "copy", "-t", "00:00:10", "hackaton_test_output.mp4"}}};
                 p2.StartInfo.UseShellExecute = false;
                 p2.StartInfo.RedirectStandardOutput = true;
                 p2.Start();
