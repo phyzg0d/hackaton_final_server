@@ -55,7 +55,7 @@ namespace ServerAspNetCoreLinux.Core
                 var data = File.ReadAllBytes("test/hackaton_test_output.mp4");
                 var postParameters = new Dictionary<string, object>();
                 
-                postParameters.Add("url", new FileParameter(data, "file", "application/octet-stream"));
+                postParameters.Add("file", new FileParameter(data, "file", "application/octet-stream"));
                 postParameters.Add("api_token", "e1d593768b4a52f1f6229de45d64cd2d");
                 postParameters.Add("return", "timecode,apple_music,deezer,spotify");
 
