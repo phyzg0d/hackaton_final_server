@@ -44,11 +44,11 @@ namespace ServerAspNetCoreLinux.Core
             else
             {
                 var link = "https://www.youtube.com/watch?v=1RxtNtRiOqQ&ab_channel=MaxKorzh";
-                var p = new Process {StartInfo = {FileName = "youtube-dl", ArgumentList = {"-o", "hackaton_test1.m4a", "-f", "140", link, "--exec", "mv {} /root/hackaton_final_server/test/"}}};
+                var p = new Process {StartInfo = {FileName = "youtube-dl", ArgumentList = {"-o", "hackaton_test1.m4a", "-f", "140", link, "--exec", "mv {} test/"}}};
                 p.Start();
                 p.WaitForExit();
 
-                var p2 = new Process {StartInfo = {FileName = "ffmpeg", ArgumentList = {"-i", "hackaton_test1.m4a", "-ss", "00:01:52", "-c", "copy", "-t", "00:00:10", "hackaton_test_output.mp4"}}};
+                var p2 = new Process {StartInfo = {FileName = "ffmpeg", ArgumentList = {"-i", "test/hackaton_test1.m4a", "-ss", "00:01:52", "-c", "copy", "-t", "00:00:10", "test/hackaton_test_output.mp4"}}};
                 p2.Start();
                 p2.WaitForExit();
 
