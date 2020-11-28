@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using CoreServer;
@@ -46,6 +47,7 @@ namespace ServerAspNetCoreLinux.Core
                         ArgumentList = {"-f", "bestaudio[ext=m4a]", "https://www.youtube.com/watch?v=VkWFAoeJLUI&ab_channel=MORGENSHTERN"}
                     });
                 process.WaitForExit();
+                process.OutputDataReceived += OnReceive;
                 
                 CreateModels();
                 CreateControllers();
@@ -55,6 +57,11 @@ namespace ServerAspNetCoreLinux.Core
                 
                 ServerLoggerModel.Log(TypeLog.Info, "server started");
             }
+        }
+
+        private void OnReceive(object sender, DataReceivedEventArgs e)
+        {
+            Console.WriteLine(e.Data);
         }
 
         private void CreateModels()
