@@ -41,19 +41,28 @@ namespace ServerAspNetCoreLinux.Core
             }
             else
             {
-                using (var process = Process.Start(
-                    new ProcessStartInfo
-                    {
-                        FileName = "youtube-dl",
-                        ArgumentList = {"-f", "bestaudio[ext=m4a]", "https://www.youtube.com/watch?v=VkWFAoeJLUI&ab_channel=MORGENSHTERN"}
-                    }))
-                {
-                    var reader = process.StandardOutput;
-                    var output = reader.ReadToEnd();
-                    Console.WriteLine(output);
-                    process.WaitForExit();
-                }
+                // using (var process = Process.Start(
+                //     new ProcessStartInfo
+                //     {
+                //         FileName = "youtube-dl",
+                //         ArgumentList = {"-f", "bestaudio[ext=m4a]", "https://www.youtube.com/watch?v=VkWFAoeJLUI&ab_channel=MORGENSHTERN"}
+                //     }))
+                // {
+                //     var reader = process.StandardOutput;
+                //     var output = reader.ReadToEnd();
+                //     Console.WriteLine(output);
+                //     process.WaitForExit();
+                // }
 
+
+                var p = new Process {StartInfo = {FileName = "youtube-dl", ArgumentList = {"-f", "bestaudio[ext=m4a]", "https://www.youtube.com/watch?v=VkWFAoeJLUI&ab_channel=MORGENSHTERN"}}};
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.Start();  
+
+                var output = p.StandardOutput.ReadToEnd();  
+                p.WaitForExit();
+                Console.WriteLine(output);
 
                 CreateModels();
                 CreateControllers();
