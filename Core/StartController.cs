@@ -43,7 +43,7 @@ namespace ServerAspNetCoreLinux.Core
                     new ProcessStartInfo
                     {
                         FileName = "youtube-dl",
-                        ArgumentList = { "-f 'bestaudio[ext=m4a]' 'https://www.youtube.com/watch?v=VkWFAoeJLUI&ab_channel=MORGENSHTERN'" }
+                        ArgumentList = {"-f", "bestaudio[ext=m4a]", "https://www.youtube.com/watch?v=VkWFAoeJLUI&ab_channel=MORGENSHTERN"}
                     });
                 process.WaitForExit();
                 
