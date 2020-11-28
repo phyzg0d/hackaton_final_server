@@ -32,6 +32,8 @@ namespace ServerAspNetCoreLinux.Commands.Registration
                 {
                     var user = new UserUnitModel(_email, _password, _login, 0, "user", 2);
 
+                    user.IsNew = true;
+                    
                     context.UserModel.Add(user);
                     ServerLoggerModel.Log(TypeLog.UserMessage, $"user {_login} registered");
                 }
