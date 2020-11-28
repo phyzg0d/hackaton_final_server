@@ -28,15 +28,16 @@ namespace ServerAspNetCoreLinux.Commands
         {
             try
             {
-                var p = new Process {StartInfo = {FileName = "youtube-dl", ArgumentList = {"-o", "hackaton_test1.m4a", "-f", "140", _link, "--exec", "mv {} test/"}}};
+                var random = new Random().Next(10000);
+                var p = new Process {StartInfo = {FileName = "youtube-dl", ArgumentList = {"-o", $"{random}.m4a", "-f", "140", _link, "--exec", "mv {} test/"}}};
                 p.Start();
                 p.WaitForExit();
 
-                var p2 = new Process {StartInfo = {FileName = "ffmpeg", ArgumentList = {"-i", "test/hackaton_test1.m4a", "-ss", "00:01:52", "-c", "copy", "-t", "00:00:10", "test/hackaton_test_output.mp4"}}};
+                var p2 = new Process {StartInfo = {FileName = "ffmpeg", ArgumentList = {"-i", $"test/{random}.m4a", "-ss", "00:01:52", "-c", "copy", "-t", "00:00:10", $"test/{random}_output.mp4"}}};
                 p2.Start();
                 p2.WaitForExit();
 
-                var data = File.ReadAllBytes("test/hackaton_test_output.mp4");
+                var data = File.ReadAllBytes($"test/{random}_output.mp4");
                 var postParameters = new Dictionary<string, object>();
 
                 postParameters.Add("file", new FileParameter(data, "file", "application/octet-stream"));
@@ -53,6 +54,8 @@ namespace ServerAspNetCoreLinux.Commands
                 webResponse.Close();
             
                 UserParams.Add("callback", fullResponse);
+                File.Delete($"test/{random}.m4a");
+                File.Delete($"test/{random}_output.mp4");
             }
             catch (Exception e)
             {
