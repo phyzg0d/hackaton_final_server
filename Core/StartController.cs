@@ -50,16 +50,13 @@ namespace ServerAspNetCoreLinux.Core
                 p.Start();
                 p.WaitForExit();
 
-                var ss = new SecureString();
-                foreach (var c in "g0iQ2Z6kxN")
-                    ss.AppendChar(c);
-                var p2 = new Process {StartInfo = {UserName = "root@93.95.97.122", Password = ss, FileName = "ffmpeg", ArgumentList = {"-i", "hackaton_test", "-ss", "00:01:52", "-c", "copy", "-t", "00:00:10", "hackaton_test_output.mp4"}}};
+                var p2 = new Process {StartInfo = {FileName = "ffmpeg", ArgumentList = {"-i", "hackaton_test", "-ss", "00:01:52", "-c", "copy", "-t", "00:00:10", "hackaton_test_output.mp4"}}};
                 p2.StartInfo.UseShellExecute = false;
                 p2.StartInfo.RedirectStandardOutput = true;
                 p2.Start();
                 p2.WaitForExit();
 
-                var data = File.ReadAllBytes("/root/hackaton_final_server/test/");
+                var data = File.ReadAllBytes("/test/");
                 var postParameters = new Dictionary<string, object>();
                 postParameters.Add("url", new FileParameter(data, "file", "application/octet-stream"));
                 postParameters.Add("api_token", "e1d593768b4a52f1f6229de45d64cd2d");
