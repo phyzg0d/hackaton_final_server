@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -46,8 +47,11 @@ namespace ServerAspNetCoreLinux.Core
                         FileName = "youtube-dl",
                         ArgumentList = {"-f", "bestaudio[ext=m4a]", "https://www.youtube.com/watch?v=VkWFAoeJLUI&ab_channel=MORGENSHTERN"}
                     });
+                
+                var reader = process.StandardOutput;
+                var output = reader.ReadToEnd();
+                Console.WriteLine(output);
                 process.WaitForExit();
-                process.OutputDataReceived += OnReceive;
                 
                 CreateModels();
                 CreateControllers();
