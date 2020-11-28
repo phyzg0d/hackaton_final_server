@@ -30,7 +30,7 @@ namespace ServerAspNetCoreLinux.ServerCore.Commands.Base
 
             _httpContext.Response.OnStarting(() =>
             {
-                _httpContext.Response.Headers.Add("Host", "http://25.57.84.220:8000");
+                _httpContext.Response.Headers.Add("Host", "http://93.95.97.122:8000");
                 _httpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
                 _httpContext.Response.Headers.Add("Large-Allocation", "0");
                 _httpContext.Response.Headers.Add("Content-Range", "bytes */*");
