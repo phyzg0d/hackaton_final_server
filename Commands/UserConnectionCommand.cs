@@ -1,7 +1,9 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
+using ServerAspNetCoreLinux.Lib.fastJSON;
 using ServerAspNetCoreLinux.ServerCore.Commands.Base;
 using ServerAspNetCoreLinux.ServerCore.ServerLogger;
+using ServerAspNetCoreLinux.Users;
 
 namespace ServerAspNetCoreLinux.Commands
 {
@@ -22,6 +24,7 @@ namespace ServerAspNetCoreLinux.Commands
 
                 UserParams.Add("authorisation", true);
                 UserParams.Add("user", user.Properties.GetSerialize());
+                UserParams.Add("history", JSON.ToJSON(((UserUnitModel)user).History));
 
                 ServerLoggerModel.Log(TypeLog.UserMessage, $"user {_userId} is authorized");
             }

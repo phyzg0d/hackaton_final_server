@@ -36,11 +36,7 @@ namespace ServerAspNetCoreLinux.Users
             get => Properties.Get<float>("hours_left").Value;
             set => Properties.Get<float>("hours_left").Value = value;
         }
-        public string[] History
-        {
-            get => Properties.GetArray<string>("history").Value;
-            set => Properties.GetArray<string>("history").Value = value;
-        }
+        public List<object> History = new List<object>();
         
         public UserUnitModel(string email, string password, string login, float money, string permission, float hoursLeft)
         {
@@ -50,7 +46,6 @@ namespace ServerAspNetCoreLinux.Users
             Properties.Create<float>("money", true).Value = money;
             Properties.Create<string>("permission", true).Value = permission;
             Properties.Create<float>("hours_left", true).Value = hoursLeft;
-            Properties.CreateArray<string>("history", true).Value = new string[] {};
         }
         
         public override void Deserialize(IDictionary<string, object> data)
