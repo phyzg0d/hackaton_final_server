@@ -36,12 +36,15 @@ namespace ServerAspNetCoreLinux.Commands.SignIn_SignOut
 
                     if (_password == user.Properties.Get<string>("password").Value)
                     {
+                        UserParams.Add("user",user.Properties.GetSerialize());
+                        
                         ServerLoggerModel.Log(TypeLog.UserMessage, $"user {user.Properties.Get<string>("id").Value} logged in");
                     }
                     else
                     {
                         UserParams["error"] = true;
                         UserParams["error_text"] = "Wrong password";
+                        
                         ServerLoggerModel.Log(TypeLog.UserMessage, $"user {user.Properties.Get<string>("id").Value} entered incorrect data");
                     }
                 }

@@ -9,7 +9,9 @@ namespace ServerAspNetCoreLinux.Tracks
 {
     public class TracksModel : ReplicationModel
     {
-        private Dictionary<string, TrackUnitModel> _tracks = new Dictionary<string, TrackUnitModel>();
+        private Dictionary<string, TrackUnitModel> _tracksAll = new Dictionary<string, TrackUnitModel>();
+        private Dictionary<string, TrackUnitModel> _tracksFree = new Dictionary<string, TrackUnitModel>();
+        private Dictionary<string, TrackUnitModel> _tracksLicensed = new Dictionary<string, TrackUnitModel>();
 
         public TracksModel(DeserializerConfig deserializerConfig) : base(null, deserializerConfig, "hackaton_tracks")
         {
@@ -19,11 +21,33 @@ namespace ServerAspNetCoreLinux.Tracks
         {
             var track = new TrackUnitModel(dataReader);
 
-            if (!_tracks.ContainsKey(track.TrackName))
+            if (!_tracksAll.ContainsKey(track.TrackName))
             {
-                _tracks.Add(track.TrackName, track);
+                _tracksAll.Add(track.TrackName, track);
             }
-            
+
+            // if (!_tracksFree.ContainsKey(track.TrackName))
+            // {
+            //     if (track.RightsStatus == "FREE")
+            //     {
+            //         for (var i = 0; i < 50; i++)
+            //         {
+            //             _tracksFree.Add(track.TrackName, track);
+            //         }
+            //     }
+            // }
+            //
+            // if (!_tracksLicensed.ContainsKey(track.TrackName))
+            // {
+            //     if (track.RightsStatus == "DMCA")
+            //     {
+            //         for (var i = 0; i < 150; i++)
+            //         {
+            //             _tracksLicensed.Add(track.TrackName, track);
+            //         }
+            //     }
+            // }
+
             // ServerLoggerModel.Log(TypeLog.Info,"track deserialize was completed");
         }
     }

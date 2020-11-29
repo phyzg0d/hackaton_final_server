@@ -36,6 +36,11 @@ namespace ServerAspNetCoreLinux.Users
             get => Properties.Get<float>("hours_left").Value;
             set => Properties.Get<float>("hours_left").Value = value;
         }
+        // public List<TracksInterprice> History
+        // {
+        //     get => Properties.GetList<TracksInterprice>("history").Value;
+        //     set => Properties.GetList<TracksInterprice>("history").Value = value;
+        // }
         
         public UserUnitModel(string email, string password, string login, float money, string permission, float hoursLeft)
         {

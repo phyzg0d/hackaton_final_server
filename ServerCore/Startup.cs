@@ -30,7 +30,6 @@ namespace ServerAspNetCoreLinux.ServerCore
             Context = new ServerContext();
             StartController = new StartController(Context, HttpContext);
 
-
             app.UseDefaultFiles();
 
             app.UseRouting();

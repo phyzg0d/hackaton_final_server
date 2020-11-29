@@ -43,9 +43,6 @@ namespace ServerAspNetCoreLinux.Core
             }
             else
             {
-                
-
-
                 CreateModels();
                 CreateControllers();
                 _controllerCollection.Activate();

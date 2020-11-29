@@ -15,9 +15,9 @@ namespace ServerAspNetCoreLinux.ServerCore.Commands.Base
     {
         private readonly HttpContext _httpContext;
         public readonly HttpRequest Request;
-        public string NameCommand { get; set; }
-        protected Dictionary<string, object> UserParams = new Dictionary<string, object>();
         protected HttpResponse Response { get; }
+        protected Dictionary<string, object> UserParams = new Dictionary<string, object>();
+        public string NameCommand { get; set; }
 
         protected ExecuteCommand(IFormCollection data, HttpContext httpContext, string nameCommand)
         {

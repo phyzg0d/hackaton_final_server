@@ -25,6 +25,7 @@ namespace ServerAspNetCoreLinux.ServerCore
                         model.Deserialize(dataReader);
                     }
                 }
+                
                 dataReader.Close();
             }
             
@@ -43,6 +44,7 @@ namespace ServerAspNetCoreLinux.ServerCore
                     context.TracksModel.Deserialize(dataReader1);
                 }
             }
+            
             dataReader1.Close();
         }
     }
