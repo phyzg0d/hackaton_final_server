@@ -11,7 +11,7 @@ namespace ServerAspNetCoreLinux.Tracks
     {
         private Dictionary<string, TrackUnitModel> _tracksAll = new Dictionary<string, TrackUnitModel>();
         private Dictionary<string, TrackUnitModel> _tracksFree = new Dictionary<string, TrackUnitModel>();
-        private Dictionary<string, TrackUnitModel> _tracksLicensed = new Dictionary<string, TrackUnitModel>();
+        public Dictionary<string, TrackUnitModel> TracksLicensed = new Dictionary<string, TrackUnitModel>();
 
         public TracksModel(DeserializerConfig deserializerConfig) : base(null, deserializerConfig, "hackaton_tracks")
         {
@@ -41,9 +41,9 @@ namespace ServerAspNetCoreLinux.Tracks
             {
                 for (var i = 0; i < 150; i++)
                 {
-                    if (!_tracksLicensed.ContainsKey(track.TrackName))
+                    if (!TracksLicensed.ContainsKey(track.TrackName))
                     {
-                        _tracksLicensed.Add(track.TrackName, track);
+                        TracksLicensed.Add(track.TrackName, track);
                     }
                 }
             }
