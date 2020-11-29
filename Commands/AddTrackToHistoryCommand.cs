@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Http;
 using ServerAspNetCoreLinux.ServerCore.Commands.Base;
 
@@ -16,7 +17,7 @@ namespace ServerAspNetCoreLinux.Commands
 
         public override void Execute(ServerContext context)
         {
-            context.UserModel[_userId].Properties.GetDictionary<string>("history").Value.Add(_track, "");
+            context.UserModel[_userId].Properties.GetArray<string>("history").Value.Append(_track);
             Send();
         }
     }
