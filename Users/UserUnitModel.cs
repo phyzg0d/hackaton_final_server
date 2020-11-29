@@ -50,7 +50,7 @@ namespace ServerAspNetCoreLinux.Users
             Properties.Create<float>("money", true).Value = money;
             Properties.Create<string>("permission", true).Value = permission;
             Properties.Create<float>("hours_left", true).Value = hoursLeft;
-            Properties.CreateDictionary<string>("history", true);
+            Properties.CreateDictionary<string>("history", true).Value = new Dictionary<string, string>();
         }
         
         public override void Deserialize(IDictionary<string, object> data)
