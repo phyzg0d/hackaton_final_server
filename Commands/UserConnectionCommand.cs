@@ -16,28 +16,20 @@ namespace ServerAspNetCoreLinux.Commands
 
         public override void Execute(ServerContext context)
         {
-            try
+            if (context.UserModel.Contains(_userId))
             {
-                if (context.UserModel.Contains(_userId))
-                {
-                    var user = context.UserModel.Get(_userId);
+                var user = context.UserModel.Get(_userId);
 
-                    UserParams.Add("authorisation", true);
-                    UserParams.Add("user", user.Properties.GetSerialize());
+                UserParams.Add("authorisation", true);
+                UserParams.Add("user", user.Properties.GetSerialize());
 
-                    ServerLoggerModel.Log(TypeLog.UserMessage, $"user {_userId} is authorized");
-                }
-                else
-                {
-                    UserParams["authorisation"] = false;
-
-                    ServerLoggerModel.Log(TypeLog.UserMessage, "user authorization interrupted");
-                }
+                ServerLoggerModel.Log(TypeLog.UserMessage, $"user {_userId} is authorized");
             }
-            catch (Exception e)
+            else
             {
-                Console.WriteLine(e);
-                throw;
+                UserParams["authorisation"] = false;
+
+                ServerLoggerModel.Log(TypeLog.UserMessage, "user authorization interrupted");
             }
 
             Send();

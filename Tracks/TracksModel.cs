@@ -26,29 +26,29 @@ namespace ServerAspNetCoreLinux.Tracks
                 _tracksAll.Add(track.TrackName, track);
             }
 
-            // if (!_tracksFree.ContainsKey(track.TrackName))
-            // {
-            //     if (track.RightsStatus == "FREE")
-            //     {
-            //         for (var i = 0; i < 50; i++)
-            //         {
-            //             _tracksFree.Add(track.TrackName, track);
-            //         }
-            //     }
-            // }
-            //
-            // if (!_tracksLicensed.ContainsKey(track.TrackName))
-            // {
-            //     if (track.RightsStatus == "DMCA")
-            //     {
-            //         for (var i = 0; i < 150; i++)
-            //         {
-            //             _tracksLicensed.Add(track.TrackName, track);
-            //         }
-            //     }
-            // }
+            if (track.RightsStatus == "FREE")
+            {
+                for (var i = 0; i < 50; i++)
+                {
+                    if (!_tracksFree.ContainsKey(track.TrackName))
+                    {
+                        _tracksFree.Add(track.TrackName, track);
+                    }
+                }
+            }
 
-            // ServerLoggerModel.Log(TypeLog.Info,"track deserialize was completed");
+            if (track.RightsStatus == "DMCA")
+            {
+                for (var i = 0; i < 150; i++)
+                {
+                    if (!_tracksLicensed.ContainsKey(track.TrackName))
+                    {
+                        _tracksLicensed.Add(track.TrackName, track);
+                    }
+                }
+            }
+
+            ServerLoggerModel.Log(TypeLog.Info,"track deserialize was completed");
         }
     }
 }

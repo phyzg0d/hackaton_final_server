@@ -24,6 +24,7 @@ namespace ServerAspNetCoreLinux.ServerCore.Utilities
                 {nameof(UserConnectionCommand), (form, httpContext) => new UserConnectionCommand(form, httpContext)},
                 {nameof(GetTracksCommand), (form, httpContext) => new GetTracksCommand(form, httpContext)},
                 {nameof(GetYouTubeVideoInfoCommand), (form, httpContext) => new GetYouTubeVideoInfoCommand(form, httpContext)},
+                {nameof(AddTrackToHistoryCommand), (form, httpContext) => new AddTrackToHistoryCommand(form, httpContext)},
             };
         }
     }
