@@ -23,12 +23,12 @@ namespace ServerAspNetCoreLinux.Commands
                 
                 UserParams.Add("permission", user.Properties.Get<string>("permission"));
                 
-                if (user.Properties.Get<string>("session").Value == _session)
-                {
+                // if (user.Properties.Get<string>("session").Value == _session)
+                // {
                     UserParams.Add("authorisation", true);
                     
                     ServerLoggerModel.Log(TypeLog.UserMessage, $"user {_userId} is authorized");
-                }
+                // }
             }
             else
             {
